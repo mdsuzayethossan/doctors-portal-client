@@ -3,19 +3,24 @@ import DashboardLayout from "../../Layout/DashboardLayout";
 import Main from "../../Layout/Main";
 import Appointment from "../../Pages/Appointment/Appointment/Appointment";
 import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard";
-import MyAppointment from "../../Pages/Dashboard/Dashboard/MyAppointment/MyAppointment";
+import MyAppointment from "../../Pages/Dashboard/MyAppointment/MyAppointment";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Loading from "../../Pages/Shared/Loading/Loading";
 import SignUp from "../../Pages/SignUp/SignUp";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
-import Users from "../../Pages/Dashboard/Dashboard/Users/Users";
+import Users from "../../Pages/Dashboard/Users/Users";
 import AdminRoute from "../PrivateRoute/AdminRoute";
+import AddDoctor from "../../Pages/Dashboard/AddDoctors/AddDoctor";
+import ManageDoctors from "../../Pages/Dashboard/ManageDoctors";
+import Payment from "../../Pages/Dashboard/Payment/Payment";
+import ErrorPage from "../../Pages/Shared/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -46,6 +51,7 @@ const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/dashboard",
@@ -62,6 +68,34 @@ const router = createBrowserRouter([
             <Users></Users>
           </AdminRoute>
         ),
+      },
+      {
+        path: "/dashboard/add-doctor",
+        element: (
+          <AdminRoute>
+            <AddDoctor></AddDoctor>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/managedoctors",
+        element: (
+          <AdminRoute>
+            <ManageDoctors></ManageDoctors>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: (
+          <PrivateRoute>
+            <Payment></Payment>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://doctors-portal-server-mu-orpin.vercel.app/booking/${params.id}`
+          ),
       },
     ],
   },

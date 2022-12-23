@@ -17,14 +17,14 @@ const AvailableAppointments = ({ selectedDate }) => {
     queryKey: ["appointmentOptions", date],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/appointmentOptions?date=${date}`
+        `https://doctors-portal-server-mu-orpin.vercel.app/appointmentOptions?date=${date}`
       );
       const data = res.json();
       return data;
     },
   });
   //   useEffect(() => {
-  //     fetch("http://localhost:5000/appointmentOptions")
+  //     fetch("https://doctors-portal-server-mu-orpin.vercel.app/appointmentOptions")
   //       .then((res) => res.json())
   //       .then((data) => setAppointmentOptions(data));
   //   }, []);
